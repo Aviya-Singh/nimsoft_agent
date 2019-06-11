@@ -1,0 +1,1 @@
+address=`ip addr|grep 'inet'|grep eth0|awk '{print $2}'|cut -d'/'  -f1` && sed -i "6s/.*/ ROBOTIP=$address/"  /opt/nms-robot-vars.cfg && sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config && sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/' /etc/ssh/sshd_config && sleep 5 && service sshd restart && echo "Completed"

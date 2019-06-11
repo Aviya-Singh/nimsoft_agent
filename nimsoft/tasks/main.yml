@@ -1,0 +1,32 @@
+- name: copy nimsoft configuartion script
+  copy:
+    src: nimconfig
+    dest: /opt/
+    mode: '0777' 
+
+- name: copy nimsoft cfg file
+  copy:
+    src: nms-robot-vars.cfg
+    dest: /opt/
+    mode: '0777'
+
+- name: copy nimsoft agent
+  copy:
+    src: nimsoft-robot.x86_64.rpm
+    dest: /opt/
+    mode: '0777'
+
+- name: Install agent 
+  shell: cd /opt/ && rpm -ivh nimsoft-robot.x86_64.rpm
+
+- name: Execute update script
+  shell: cd /opt/ && ./nimconfig
+
+- name: update configuration of robot 
+  shell: cd /opt/nimsoft/install/ && ./RobotConfigurer.sh
+
+- pause:
+    minutes: 5
+
+- name: start the service 
+  shell: /etc/init.d/nimbus start

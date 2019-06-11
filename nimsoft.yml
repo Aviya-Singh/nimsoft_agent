@@ -1,0 +1,6 @@
+---
+- name: Play for nimsoft
+  hosts: all
+  roles: 
+  - nimsoft
+
